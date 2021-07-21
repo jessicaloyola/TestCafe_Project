@@ -2,7 +2,8 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 export const URLS = {
-    LOGIN_URL: process.env.BASE_URL
+    HOME_URL: process.env.HOME_URL,
+    LOGIN_URL: process.env.LOGIN_URL
 }
 
 export const CREDENTIALS = {
@@ -11,15 +12,16 @@ export const CREDENTIALS = {
         PASSWORD: process.env.STANDARD_USER_PASSWORD
     },
     INVALID_USER:{
-        USERNAME: 'invalid_user',
-        PASSWORD: 'invalid_password'
+        USERNAME: 'invalid@mail',
+        PASSWORD: 'invalidPassword'
     }
 }
 
 export const MESSAGES = {
     ERROR:{
         LOGIN_PAGE:{
-            USERNAME_REQUIRED: 'Epic sadface: Username is required'
+            INVALID_EMAIL: 'Invalid email address.',
+            BLANK_PASSWORD: 'Blank password.'
         }
     }
 }
