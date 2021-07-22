@@ -26,6 +26,7 @@ export const MESSAGES = {
     }
 }
 
-export const TASK_NAME = {
-    TASK_NAME: "New task created"
+export const TASK_INFO = {
+    TASK_NAME: "New task created",
+    PROJECT_NAME: 'Wizeline project'
 }
