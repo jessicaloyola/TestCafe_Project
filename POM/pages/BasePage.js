@@ -14,8 +14,7 @@ class BasePage{
         this.addtoFavoriteSwitch = Selector('.reactist_switch')
         this.addFavoriteProjectButton = Selector('.ist_button_red')
         this.inboxMenuButton = Selector('#filter_inbox')
-        this.numberOfTask = Selector('.item_counter').value
-
+        this.numberOfTask = Selector('.item_counter')
         
     }
 
@@ -40,7 +39,11 @@ class BasePage{
 
     async goToInbox(){
         await t.click(this.inboxMenuButton)
-        await todayPage.deleteEveryTask(this.numberOfTask)
+
+        //await t.expect(Selector('.small.item_counter', { timeout: 500 }).innerText).eql(5);
+        console.log('number of task '+this.numberOfTask.innerText)
+        await todayPage.deleteEveryTask(this.numberOfTask.innerText)
+
     }
 
 }
