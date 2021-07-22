@@ -7,14 +7,10 @@ class LoginPage{
         this.loginButton = Selector('.sel_login').withText('Log in')
         this.errorEmailMessage = Selector('.error_msg').withText('Invalid email address.')
         this.errorPasswordMessage = Selector('.error_msg').withText('Blank password.')
-
-        //this.loginRef = Selector('._3XsmI li [href="/users/showlogin"]')
-
     }
 
     async submitLoginForm(username, password){
 
-        //await t.click(this.loginRef)
         if (username != null){
             await t.typeText(this.usernameInput, username, {paste: true})
         }

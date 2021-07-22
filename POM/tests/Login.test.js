@@ -1,7 +1,6 @@
 import logInPage from '../pages/LogInPage'
 import homePage from '../pages/HomePage'
 import todayPage from '../pages/TodayPage'
-import { STANDARD_USER , INVALID_USER } from '../data/Roles'
 import {URLS, CREDENTIALS, MESSAGES } from '../data/Constants'
 
 
