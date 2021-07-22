@@ -25,3 +25,7 @@ export const MESSAGES = {
         }
     }
 }
+
+export const TASK_NAME = {
+    TASK_NAME: "New task created"
+}

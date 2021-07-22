@@ -1,4 +1,5 @@
 import { Selector, t } from 'testcafe'
+import { TASK_NAME } from '../data/Constants'
 
 class TodayPage{
     constructor (){
@@ -6,8 +7,7 @@ class TodayPage{
         this.plusAddbutton = Selector('.plus_add_button')
         this.titleTaskblock= Selector('.public-DraftStyleDefault-ltr')
         this.addNewTaskbutton= Selector('.reactist_button--primary')
-        this.newTaskText = "New task created"
-        this.newCreatedTask = Selector('.task_content').withExactText(this.newTaskText)
+        this.newCreatedTask = Selector('.task_content').withExactText(TASK_NAME.TASK_NAME)
         this.itemDueSelectorbutton = Selector('.item_due_selector')
         this.tomorrowDueButton = Selector('.scheduler-suggestions-item-label').withExactText('Tomorrow')
         this.checkboxButton = Selector('.task_checkbox__circle')
