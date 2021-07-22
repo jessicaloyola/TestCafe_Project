@@ -12,6 +12,8 @@ class TodayPage{
         this.tomorrowDueButton = Selector('.scheduler-suggestions-item-label').withExactText('Tomorrow')
         this.checkboxButton = Selector('.task_checkbox__circle')
         this.itemList = Selector('.task_list_item')
+        this.deleteItemButton = Selector('.icon_menu_item__content').withExactText('Delete task')
+        this.confirmDeleteButton = Selector('.ist_button_red').withExactText('Delete')
 
     }
 
@@ -49,9 +51,13 @@ class TodayPage{
         let itemCount = await this.itemList.count
         if (itemCount > 0){
             for (let i = 0; i < itemCount; i ++){
-                await t.click(this.checkboxButton)
+                await t.rightClick(this.checkboxButton)
+                await t.click(this.deleteItemButton)
+                await t.click(this.confirmDeleteButton)
             }
         }
+        if (itemCount = 0)
+            await t.expect(itemCount).ok
     }
 
 }

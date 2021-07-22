@@ -5,11 +5,18 @@
   "main": "index.js",
   "scripts": {
     "test": "testcafe chrome ./pom/tests",
-    "test-smoke": "testcafe chrome ./pom/tests --test-meta type=smoke"
+    "test-smoke": "testcafe chrome, safari ./pom/tests --test-meta type=smoke",
+    "loginTest": "testcafe chrome ./POM/tests/Login.test.js",
+    "loginTask": "testcafe chrome ./POM/tests/Task.test.js",
+    "lint": "eslint ./POM/"
   },
   "author": "jloyola",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^10.0.0"
+    "dotenv": "10.0.0"
+  },
+  "devDependencies": {
+    "eslint": "7.31.0",
+    "testcafe-reporter-slack": "0.0.6"
   }
 }

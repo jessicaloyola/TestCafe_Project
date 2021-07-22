@@ -16,7 +16,7 @@ test('As a user I should be able to log in successfully by providing valid crede
     await t.expect(todayPage.pageTitle.exists).ok()
 })
 
-test('As a user I should be able to not log in by providing invalid credentials', async t => {
+test.meta('type','smoke')('As a user I should be able to not log in by providing invalid credentials', async t => {
     await t.setTestSpeed(0.3)
     await homePage.clicLoginLink()
     await logInPage.submitLoginForm(CREDENTIALS.INVALID_USER.USERNAME, CREDENTIALS.INVALID_USER.PASSWORD)
