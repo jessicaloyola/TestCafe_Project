@@ -6,9 +6,9 @@ class HomePage{
         this.loginRef = Selector('._3XsmI li [href="/users/showlogin"]')
     }
 
-    async clicLoginButton(username, password){
+    async clicLoginLink(){
         await t.click(this.loginRef)
-        await logInPage.submitLoginForm(username, password)
+        //await logInPage.submitLoginForm(username, password)
     }
 
 }

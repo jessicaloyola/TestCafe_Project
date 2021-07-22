@@ -12,7 +12,8 @@ fixture('Login feature test')
     
 test('As a user I should be able to log in successfully by providing valid credentials', async t => {
     await t.setTestSpeed(0.3)
-    await homePage.clicLoginButton(CREDENTIALS.STANDARD_USER.USERNAME, CREDENTIALS.STANDARD_USER.PASSWORD)
+    await homePage.clicLoginLink()
+    await logInPage.submitLoginForm(CREDENTIALS.STANDARD_USER.USERNAME, CREDENTIALS.STANDARD_USER.PASSWORD)
     await t.setTestSpeed(0.3)
     await t.expect(todayPage.pageTitle.exists).ok()
 })

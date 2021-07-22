@@ -8,7 +8,7 @@ class LoginPage{
         this.errorEmailMessage = Selector('.error_msg').withText('Invalid email address.')
         this.errorPasswordMessage = Selector('.error_msg').withText('Blank password.')
 
-        this.loginRef = Selector('._3XsmI li [href="/users/showlogin"]')
+        //this.loginRef = Selector('._3XsmI li [href="/users/showlogin"]')
 
     }
 
