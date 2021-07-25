@@ -14,7 +14,7 @@ class TodayPage{
         this.itemList = Selector('.task_list_item')
         this.deleteItemButton = Selector('.icon_menu_item__content').withExactText('Delete task')
         this.confirmDeleteButton = Selector('.ist_button_red').withExactText('Delete')
-
+        this.newProjectCreated = Selector('h1 .simple_content').withExactText(TASK_INFO.PROJECT_NAME)
     }
 
     async addNewTodayTask(){
@@ -22,7 +22,6 @@ class TodayPage{
         await t.typeText(this.titleTaskblock, TASK_INFO.TASK_NAME, {paste: true})
         await t.setTestSpeed(0.3)
         await t.click(this.addNewTaskbutton)
-        await t.expect(this.newCreatedTask.exists).ok()
     }
 
     async addNewTomorrowTask(){
