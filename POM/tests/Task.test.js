@@ -37,9 +37,6 @@ test
     await t.setTestSpeed(0.3)
     await todayPage.addTenTodayTasks()
     })
-    .after(async () => {
-        await todayPage.deleteEveryTask()
-    })
 
 test
     .meta('type','smoke')
@@ -47,6 +44,9 @@ test
         await t.setTestSpeed(0.3)
         await basePage.createNewFavoriteProject()
         await t.expect(todayPage.newProjectCreated.exists).ok()
+    })
+    .after(async () => {
+        await todayPage.cleanProjectWorkspace()
     })
 
 test
