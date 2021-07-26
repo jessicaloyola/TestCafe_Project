@@ -17,6 +17,7 @@ test
         await t.expect(todayPage.newCreatedTask.exists).ok()
     })
     .after(async () => {
+        await t.wait(3000)
         await todayPage.deleteEveryTask()
     })
 
@@ -27,6 +28,7 @@ test
         await t.expect(todayPage.newCreatedTask.exists).ok()
     })
     .after(async () => {
+        await t.wait(3000)
         await todayPage.deleteEveryTask()
     })
 
