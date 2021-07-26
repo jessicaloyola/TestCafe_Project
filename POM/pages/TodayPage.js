@@ -15,6 +15,8 @@ class TodayPage{
         this.deleteItemButton = Selector('.icon_menu_item__content').withExactText('Delete task')
         this.confirmDeleteButton = Selector('.ist_button_red').withExactText('Delete')
         this.newProjectCreated = Selector('h1 .simple_content').withExactText(TASK_INFO.PROJECT_NAME)
+        this.projectHeaderActionsButton = Selector('[aria-label="Project options menu"]');
+        this.deleteProjectButton = Selector('.icon_menu_item__content').withExactText('Delete project')
     }
 
     async addNewTodayTask(){
@@ -57,6 +59,12 @@ class TodayPage{
         }
         if (itemCount == 0)
             await t.expect(itemCount).ok
+    }
+
+    async cleanProjectWorkspace(){
+        await t.click(this.projectHeaderActionsButton)
+        await t.click(this.deleteProjectButton)
+        await t.click(this.confirmDeleteButton)
     }
 
 }

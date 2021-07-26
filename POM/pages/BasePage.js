@@ -12,8 +12,6 @@ class BasePage{
         this.addtoFavoriteSwitch = Selector('.reactist_switch')
         this.addFavoriteProjectButton = Selector('.ist_button_red')
         this.inboxMenuButton = Selector('#filter_inbox')
-        this.newProjectAdded = Selector('.clickable .text').withExactText(TASK_INFO.PROJECT_NAME)
-
 
     }
 
@@ -28,12 +26,12 @@ class BasePage{
         await t.click(this.favoriteColorSelection)
         await t.click(this.addtoFavoriteSwitch)
         await t.click(this.addFavoriteProjectButton)
-        await t.click(this.newProjectAdded)
     }
 
     async goToInbox(){
         await t.click(this.inboxMenuButton)
     }
+
 }
 
 export default new BasePage

@@ -31,11 +31,17 @@ test('As a user I should be able to create 10 tasks with today as the due date a
     await todayPage.addTenTodayTasks()
 })
 
-test.meta('type','smoke')('As a user I should be able to create a new project with a color and add it to my favorites', async t => {
-    await t.setTestSpeed(0.3)
-    await basePage.createNewFavoriteProject()
-    await t.expect(todayPage.newProjectCreated.exists).ok()
-})
+test
+    .meta('type','smoke')
+    ('As a user I should be able to create a new project with a color and add it to my favorites', async t => {
+        await t.setTestSpeed(0.3)
+        await basePage.createNewFavoriteProject()
+        await t.expect(todayPage.newProjectCreated.exists).ok()
+    })
+    .after(async () => {
+        await todayPage.cleanProjectWorkspace()
+    })
+
 
 test.meta('type','smoke')('As a user I should be able to delete every task created', async t => {
     await t.setTestSpeed(0.3)
