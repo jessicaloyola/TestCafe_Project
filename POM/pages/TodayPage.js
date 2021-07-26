@@ -17,11 +17,13 @@ class TodayPage{
         this.newProjectCreated = Selector('h1 .simple_content').withExactText(TASK_INFO.PROJECT_NAME)
         this.projectHeaderActionsButton = Selector('[aria-label="Project options menu"]');
         this.deleteProjectButton = Selector('.icon_menu_item__content').withExactText('Delete project')
+        this.cancelNewTaskButton = Selector('.reactist_button--secondary').withExactText('Cancel')
     }
 
     async addNewTodayTask(){
         await t.click(this.plusAddbutton)
         await t.typeText(this.titleTaskblock, TASK_INFO.TASK_NAME, {paste: true})
+        
         await t.setTestSpeed(0.3)
         await t.click(this.addNewTaskbutton)
     }
@@ -43,6 +45,7 @@ class TodayPage{
             await t.setTestSpeed(0.3)
             await t.click(this.addNewTaskbutton)
         }
+        await t.click(this.cancelNewTaskButton)
         let itemCount = await this.itemList.count
         if (itemCount >= 10)
             await t.expect(itemCount).ok
@@ -62,6 +65,7 @@ class TodayPage{
         if (itemCount > 0){
             for (let i = 0; i < itemCount; i ++){
                 await t.rightClick(this.checkboxButton)
+                await t.setTestSpeed(0.3)
                 await t.click(this.deleteItemButton)
                 await t.click(this.confirmDeleteButton)
             }
