@@ -42,7 +42,7 @@ To test smoke tests cases the following command shall be executed: npm run test-
 B. Dependencies
 
 Dependecies implemented in this project are:
-1. Slack as visual reporter
+1. XUnit as visual reporter
 2. Eslint as static analysis tool 
 3. Continuos Integration tool Jenkins
 4. Github Source Code repository
@@ -51,6 +51,7 @@ Dependecies implemented in this project are:
 C. Aditional configuration
 
 1. Assertion timeout configurated in 4000
+
 2. Browsers supported:
     a. Chrome
     b. Firefox

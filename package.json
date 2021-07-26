@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test-headless": "testcafe chrome:headless ./pom/tests",
-    "test-all": "testcafe chrome ./pom/tests --reporter allure",
+    "test-all": "testcafe chrome ./pom/tests -r xunit:res.xml",
     "test-smoke": "testcafe chrome ./pom/tests --test-meta type=smoke -r xunit:res.xml",
-    "test-smoke-headless": "testcafe chrome:headless ./pom/tests --test-meta type=smoke",
+    "test-smoke-headless": "testcafe chrome:headless ./pom/tests --test-meta type=smoke -r xunit:res.xml",
     "test-login": "testcafe chrome:headless,firefox:headless ./POM/tests/Login.test.js",
     "test-task": "testcafe chrome ./POM/tests/Task.test.js",
     "lint": "eslint ./POM/"
