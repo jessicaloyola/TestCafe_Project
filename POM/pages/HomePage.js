@@ -1,5 +1,4 @@
 import { Selector, t } from 'testcafe'
-import logInPage from '../pages/LogInPage'
 
 class HomePage{
     constructor (){

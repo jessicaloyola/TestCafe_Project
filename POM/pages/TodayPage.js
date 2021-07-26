@@ -55,7 +55,7 @@ class TodayPage{
                 await t.click(this.confirmDeleteButton)
             }
         }
-        if (itemCount = 0)
+        if (itemCount == 0)
             await t.expect(itemCount).ok
     }
 
