@@ -4,7 +4,6 @@ import basePage from '../pages/BasePage'
 import { STANDARD_USER} from '../data/Roles'
 import {URLS} from '../data/Constants'
 
-
 fixture('Login feature test')
     .page `${URLS.HOME_URL}`
     .beforeEach(async t =>{
@@ -21,7 +20,6 @@ test
     .after(async () => {
         await todayPage.deleteEveryTask()
     })
-
 
 test
     ('As a user I should be able to create a new task with tomorrow as the due date and validate it was created correctly', async t => {
@@ -50,16 +48,11 @@ test
         await basePage.createNewFavoriteProject()
         await t.expect(todayPage.newProjectCreated.exists).ok()
     })
-    .after(async () => {
-        await todayPage.cleanProjectWorkspace()
-    })
-
 
 test
     .before(async t => {
         await homePage.clicLoginLink()
         await t.useRole(STANDARD_USER)
-        await todayPage.addThreeTasks()
     })
     .meta('type','smoke')('As a user I should be able to delete every task created', async t => {
         await t.setTestSpeed(0.3)
