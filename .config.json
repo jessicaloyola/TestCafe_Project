@@ -1,3 +1,4 @@
 {
-    "assertionTimeout": 4000
+    "assertionTimeout": 4000,
+    "speed": 0.5
 }
