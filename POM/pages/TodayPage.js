@@ -48,6 +48,15 @@ class TodayPage{
             await t.expect(itemCount).ok
     }
 
+    async addThreeTasks(){
+        await t.click(this.plusAddbutton)
+        for (let i = 0; i < 3; i ++){
+            await t.typeText(this.titleTaskblock, TASK_INFO.TASK_NAME + " " + i, {paste: true})
+            await t.setTestSpeed(0.3)
+            await t.click(this.addNewTaskbutton)
+        }
+    }
+
     async deleteEveryTask(){
         let itemCount = await this.itemList.count
         if (itemCount > 0){

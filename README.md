@@ -8,8 +8,9 @@
 2. Dependencies
 3. Aditional config
 
+## Content
 
-1. 4 Test suites implemented
+1. Four Test suites implemented
 
     - Log in test suite, consist on 4 tests:
         - Log in successfully (1 Positive case)- As a user I should be able to not log in by providing invalid credentials
