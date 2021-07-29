@@ -15,9 +15,11 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"//Vertify status code is 200 -> Success",
 									"pm.test(\"Verify status code\", function(){",
 									"    pm.response.to.have.status(200);",
-									"});"
+									"});",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -27,9 +29,44 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURLProject}}",
+							"raw": "{{baseURL}}/projects",
 							"host": [
-								"{{baseURLProject}}"
+								"{{baseURL}}"
+							],
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllProjects-Negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verify not valid page",
+									"pm.test(\"Project not found message received\", function() {",
+									"    pm.expect(pm.response.text()).to.include(\"404 page not found\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/allprojects",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"allprojects"
 							]
 						}
 					},
@@ -42,12 +79,11 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"//Verify Project Name",
 									"const jsonData = pm.response.json();",
 									"pm.test(\"Project should be created with given name\" , function(){",
 									"    pm.expect(jsonData.name).eq(pm.environment.get(\"projectName\"))",
 									"})",
-									"",
-									"pm.environment.set(\"projectId\", jsonData.id)",
 									""
 								],
 								"type": "text/javascript"
@@ -57,7 +93,9 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.environment.set(\"projectName\", \"Weekly Project\");"
+									"pm.environment.set(\"projectName\", \"Weekly Project\");",
+									"",
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -78,9 +116,12 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseURLProject}}?name={{projectName}}",
+							"raw": "{{baseURL}}/projects?name={{projectName}}",
 							"host": [
-								"{{baseURLProject}}"
+								"{{baseURL}}"
+							],
+							"path": [
+								"projects"
 							],
 							"query": [
 								{
@@ -93,15 +134,66 @@
 					"response": []
 				},
 				{
+					"name": "createNewProject-Negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verify required name",
+									"pm.test(\"Required project name\", function() {",
+									"    pm.expect(pm.response.text()).to.include(\"Empty name\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-Id",
+								"value": "$(uuidgen)",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseURL}}/projects",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "updateProject",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Content-Type is present\", function () {",
-									"    pm.response.to.have.header(\"Content-Type\");",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -123,7 +215,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"New Project\"\n}",
+							"raw": "{\n    \"name\": \"Another project\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -131,11 +223,61 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURLProject}}/{{projectId}}",
+							"raw": "{{baseURL}}/projects/{{projectId}}",
 							"host": [
-								"{{baseURLProject}}"
+								"{{baseURL}}"
 							],
 							"path": [
+								"projects",
+								"{{projectId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateProject-Negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "X-Requested-Id",
+								"value": "$(uuidgen)",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Another project\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/projects/{{projectId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"projects",
 								"{{projectId}}"
 							]
 						}
@@ -172,11 +314,54 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURLProject}}/{{projectId}}",
+							"raw": "{{baseURL}}/projects/{{projectId}}",
 							"host": [
-								"{{baseURLProject}}"
+								"{{baseURL}}"
 							],
 							"path": [
+								"projects",
+								"{{projectId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getProject-Negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"validate Schema\", function(){",
+									"    const expectedSchema = ({",
+									"        \"name\": {",
+									"            \"type\" : \"string\"",
+									"        },",
+									"        \"color\":{",
+									"            \"type\" : \"numeric\",",
+									"        },",
+									"        \"favorite\":{",
+									"            \"type\" : \"boolean\",",
+									"        }",
+									"    });",
+									"    pm.response.to.have.jsonSchema(expectedSchema);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/projects/{{projectId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"projects",
 								"{{projectId}}"
 							]
 						}
@@ -200,11 +385,41 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseURLProject}}/{{projectId}}",
+							"raw": "{{baseURL}}/projects/{{projectId}}",
 							"host": [
-								"{{baseURLProject}}"
+								"{{baseURL}}"
 							],
 							"path": [
+								"projects",
+								"{{projectId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteProject-Negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/projects/{{projectId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"projects",
 								"{{projectId}}"
 							]
 						}
@@ -227,9 +442,7 @@
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Response time is less than 200ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(500);",
-							"});"
+							""
 						]
 					}
 				}
@@ -240,13 +453,30 @@
 			"item": [
 				{
 					"name": "getActiveTasks",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Validate Content-Type exists and its content",
+									"pm.test(\"Content-Type header exists and its value is application/json\", () => {",
+									"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURLTask}}",
+							"raw": "{{baseURL}}/tasks",
 							"host": [
-								"{{baseURLTask}}"
+								"{{baseURL}}"
+							],
+							"path": [
+								"tasks"
 							]
 						}
 					},
@@ -267,9 +497,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURLTask}}",
+							"raw": "{{baseURL}}/tasks",
 							"host": [
-								"{{baseURLTask}}"
+								"{{baseURL}}"
+							],
+							"path": [
+								"tasks"
 							]
 						}
 					},
@@ -281,9 +514,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURLTask}}",
+							"raw": "{{baseURL}}/tasks",
 							"host": [
-								"{{baseURLTask}}"
+								"{{baseURL}}"
+							],
+							"path": [
+								"tasks"
 							]
 						}
 					},
@@ -304,11 +540,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURLTask}}/{{taskId}}",
+							"raw": "{{baseURL}}/tasks/{{taskId}}",
 							"host": [
-								"{{baseURLTask}}"
+								"{{baseURL}}"
 							],
 							"path": [
+								"tasks",
 								"{{taskId}}"
 							]
 						}
@@ -321,11 +558,12 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{baseURLTask}}/{{taskId}}/close",
+							"raw": "{{baseURL}}/tasks/{{taskId}}/close",
 							"host": [
-								"{{baseURLTask}}"
+								"{{baseURL}}"
 							],
 							"path": [
+								"tasks",
 								"{{taskId}}",
 								"close"
 							]
@@ -339,11 +577,12 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{baseURLTask}}/{{taskId}}/reopen",
+							"raw": "{{baseURL}}/tasks/{{taskId}}/reopen",
 							"host": [
-								"{{baseURLTask}}"
+								"{{baseURL}}"
 							],
 							"path": [
+								"tasks",
 								"{{taskId}}",
 								"reopen"
 							]
@@ -357,11 +596,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseURLTask}}/{{taskId}}",
+							"raw": "{{baseURL}}/tasks/{{taskId}}",
 							"host": [
-								"{{baseURLTask}}"
+								"{{baseURL}}"
 							],
 							"path": [
+								"tasks",
 								"{{taskId}}"
 							]
 						}
@@ -396,6 +636,10 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
+					"pm.test(\"Response time is less than 500ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(500);",
+					"});",
+					"",
 					""
 				]
 			}
