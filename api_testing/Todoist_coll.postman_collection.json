@@ -48,7 +48,7 @@
 							"script": {
 								"exec": [
 									"// Verify not valid page",
-									"pm.test(\"Project not found message received\", function() {",
+									"pm.test(\"Page not found message received\", function() {",
 									"    pm.expect(pm.response.text()).to.include(\"404 page not found\");",
 									"});",
 									""
@@ -84,6 +84,8 @@
 									"pm.test(\"Project should be created with given name\" , function(){",
 									"    pm.expect(jsonData.name).eq(pm.environment.get(\"projectName\"))",
 									"})",
+									"",
+									"pm.environment.set(\"projectId\", jsonData.id);",
 									""
 								],
 								"type": "text/javascript"
@@ -193,7 +195,10 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"//Verify success test",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.be.success;",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -303,20 +308,11 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"validate Schema\", function(){",
-									"    const expectedSchema = ({",
-									"        \"name\":{",
-									"            \"type\" : \"string\"",
-									"        },",
-									"        \"color\":{",
-									"            \"type\" : \"numeric\"",
-									"        },",
-									"        \"favorite\":{",
-									"            \"type\" : \"boolean\",",
-									"        }",
-									"    });",
-									"    pm.response.to.have.jsonSchema(expectedSchema);",
-									"})"
+									"var jsonData = pm.response.json();",
+									"var projectId = pm.environment.get(projectId);",
+									"pm.test(\"Project id is correct\", function () {",
+									"    pm.expect(jsonData.projectId).to.eql(projectId);",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -377,7 +373,10 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"//Verify success test",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.be.success;",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -488,13 +487,73 @@
 					"response": []
 				},
 				{
+					"name": "getActiveTasks-Negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verify not valid page",
+									"pm.test(\"Page not found message received\", function() {",
+									"    pm.expect(pm.response.text()).to.include(\"404 page not found\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/alltasks",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"alltasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "createNewTask",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"validate Schema\", function(){",
+									"    const expectedSchema = ({",
+									"        \"id\":{",
+									"            \"type\" : \"numeric\"",
+									"        },",
+									"        \"content\":{",
+									"            \"type\" : \"string\"",
+									"        },",
+									"        \"favorite\":{",
+									"            \"completed\" : \"boolean\",",
+									"        }",
+									"    });",
+									"    pm.response.to.have.jsonSchema(expectedSchema);",
+									"})",
+									"",
+									"const jsonData = pm.response.json();",
+									"pm.environment.set(\"taskId\", jsonData.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"content\": \"Buy Milk\", \n    \"due_string\": \"tomorrow at 12:00\", \n    \"due_lang\": \"en\", \n    \"priority\": 4\n}",
+							"raw": "{\n    \"content\": \"Buy Almond Milk\", \n    \"due_string\": \"tomorrow at 12:00\", \n    \"due_lang\": \"en\", \n    \"priority\": 4\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -514,9 +573,24 @@
 					"response": []
 				},
 				{
-					"name": "getActiveTask",
+					"name": "createNewTask-Negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verify required content",
+									"pm.test(\"Required content\", function() {",
+									"    pm.expect(pm.response.text()).to.include(\"Empty content\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [],
 						"url": {
 							"raw": "{{baseURL}}/tasks",
@@ -531,7 +605,83 @@
 					"response": []
 				},
 				{
+					"name": "getActiveTask",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.response.to.be.success;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/tasks/{{taskId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tasks",
+								"{{taskId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getActiveTask-Negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verify valid project Id",
+									"pm.test(\"Invalid task Id\", function() {",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/tasks/{{invalidTaskId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tasks",
+								"{{invalidTaskId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "updateTask",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.response.to.be.success;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -558,7 +708,61 @@
 					"response": []
 				},
 				{
+					"name": "updateTask-Negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verify valid data type",
+									"pm.test(\"Expected numeric not string\", function() {",
+									"    pm.expect(pm.response.text()).to.include(\"JSON decode error: unexpected string at pos 24\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"priority\": \"High\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/tasks/{{taskId}}",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tasks",
+								"{{taskId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "closeTask",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.response.to.be.success;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -577,7 +781,53 @@
 					"response": []
 				},
 				{
+					"name": "closeTask-Negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Not found page",
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/tasks//close",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tasks",
+								"",
+								"close"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "reopenTask",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.response.to.be.success;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -596,7 +846,53 @@
 					"response": []
 				},
 				{
+					"name": "reopenTask-Negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Bad request",
+									"pm.test(\"Bad request\", function () {",
+									"    pm.response.to.have.status(400);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/tasks/{{invalidTaskId}}/reopen",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tasks",
+								"{{invalidTaskId}}",
+								"reopen"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "deleteTask",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is success\", function () {",
+									"    pm.response.to.be.success;",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -608,6 +904,37 @@
 							"path": [
 								"tasks",
 								"{{taskId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteTask-Negative",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"//Not found page",
+									"pm.test(\"Status code is 405\", function () {",
+									"    pm.response.to.have.status(405);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/tasks",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"tasks"
 							]
 						}
 					},
@@ -641,8 +968,8 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					"pm.test(\"Response time is less than 500ms\", function () {",
-					"    pm.expect(pm.response.responseTime).to.be.below(500);",
+					"pm.test(\"Response time is less than 700ms\", function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(700);",
 					"});",
 					"",
 					""

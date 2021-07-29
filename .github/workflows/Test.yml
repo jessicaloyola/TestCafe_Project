@@ -13,6 +13,7 @@ jobs:
       - run: npm run lint
 
   Newman:
+    needs: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
