@@ -10,6 +10,19 @@
 			"item": [
 				{
 					"name": "getAllProjects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Verify status code\", function(){",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -29,13 +42,22 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"var jsonData = pm.response.json();",
-									"var name = pm.environment.get(\"projectName\");",
-									"pm.test(\"Project name is correct\", function () {",
-									"    pm.expect(jsonData.name).to.eql(name);",
-									"});",
+									"const jsonData = pm.response.json();",
+									"pm.test(\"Project should be created with given name\" , function(){",
+									"    pm.expect(jsonData.name).eq(pm.environment.get(\"projectName\"))",
+									"})",
 									"",
-									"pm.environment.set(\"projectId\", jsonData.id);"
+									"pm.environment.set(\"projectId\", jsonData.id)",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"projectName\", \"Weekly Project\");"
 								],
 								"type": "text/javascript"
 							}
@@ -55,19 +77,16 @@
 								"type": "text"
 							}
 						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\": \"{{projectName}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
-							"raw": "{{baseURLProject}}",
+							"raw": "{{baseURLProject}}?name={{projectName}}",
 							"host": [
 								"{{baseURLProject}}"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "{{projectName}}"
+								}
 							]
 						}
 					},
@@ -80,7 +99,9 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -102,7 +123,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Updated\"\n}",
+							"raw": "{\n    \"name\": \"New Project\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -110,9 +131,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURLProject}/{{projectId}}",
+							"raw": "{{baseURLProject}}/{{projectId}}",
 							"host": [
-								"{{baseURLProject}"
+								"{{baseURLProject}}"
 							],
 							"path": [
 								"{{projectId}}"
@@ -128,11 +149,20 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"var jsonData = pm.response.json();",
-									"var projectId = pm.environment.get(\"projectId\");",
-									"pm.test(\"Project id is correct\", function () {",
-									"    pm.expect(jsonData.id).to.eql(projectId);",
-									"});"
+									"pm.test(\"validate Schema\", function(){",
+									"    const expectedSchema = ({",
+									"        \"name\": {",
+									"            \"type\" : \"string\"",
+									"        },",
+									"        \"color\":{",
+									"            \"type\" : \"numeric\",",
+									"        },",
+									"        \"favorite\":{",
+									"            \"type\" : \"boolean\",",
+									"        }",
+									"    });",
+									"    pm.response.to.have.jsonSchema(expectedSchema);",
+									"})"
 								],
 								"type": "text/javascript"
 							}
@@ -180,6 +210,28 @@
 						}
 					},
 					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});"
+						]
+					}
 				}
 			]
 		},
@@ -229,12 +281,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURLTask}}/5027847008",
+							"raw": "{{baseURLTask}}",
 							"host": [
 								"{{baseURLTask}}"
-							],
-							"path": [
-								"5027847008"
 							]
 						}
 					},
@@ -247,7 +296,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"content\": \"Buy Coffee\"\n}",
+							"raw": "{\n    \"content\": \"Buy Almond Milk\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -255,12 +304,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseURLTask}}/5027847008",
+							"raw": "{{baseURLTask}}/{{taskId}}",
 							"host": [
 								"{{baseURLTask}}"
 							],
 							"path": [
-								"5027847008"
+								"{{taskId}}"
 							]
 						}
 					},
@@ -272,12 +321,12 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{baseURLTask}}/5027847008/close",
+							"raw": "{{baseURLTask}}/{{taskId}}/close",
 							"host": [
 								"{{baseURLTask}}"
 							],
 							"path": [
-								"5027847008",
+								"{{taskId}}",
 								"close"
 							]
 						}
@@ -290,12 +339,12 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{baseURLTask}}/5027847008/reopen",
+							"raw": "{{baseURLTask}}/{{taskId}}/reopen",
 							"host": [
 								"{{baseURLTask}}"
 							],
 							"path": [
-								"5027847008",
+								"{{taskId}}",
 								"reopen"
 							]
 						}
@@ -308,12 +357,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseURLTask}}/5027847008",
+							"raw": "{{baseURLTask}}/{{taskId}}",
 							"host": [
 								"{{baseURLTask}}"
 							],
 							"path": [
-								"5027847008"
+								"{{taskId}}"
 							]
 						}
 					},
@@ -347,9 +396,6 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					"pm.test(\"Status code is success\", function () {",
-					"    pm.response.to.be.success;",
-					"});",
 					""
 				]
 			}
