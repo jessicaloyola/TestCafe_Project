@@ -197,6 +197,15 @@
 								],
 								"type": "text/javascript"
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
 						}
 					],
 					"request": {
@@ -242,7 +251,10 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"// Verify valid data type",
+									"pm.test(\"Expected numeric not string\", function() {",
+									"    pm.expect(pm.response.text()).to.include(\"JSON decode error: unexpected string at pos 21\");",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -264,7 +276,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Another project\"\n}",
+							"raw": "{\n    \"color\": \"Pink\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -293,11 +305,11 @@
 								"exec": [
 									"pm.test(\"validate Schema\", function(){",
 									"    const expectedSchema = ({",
-									"        \"name\": {",
+									"        \"name\":{",
 									"            \"type\" : \"string\"",
 									"        },",
 									"        \"color\":{",
-									"            \"type\" : \"numeric\",",
+									"            \"type\" : \"numeric\"",
 									"        },",
 									"        \"favorite\":{",
 									"            \"type\" : \"boolean\",",
@@ -333,20 +345,10 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"validate Schema\", function(){",
-									"    const expectedSchema = ({",
-									"        \"name\": {",
-									"            \"type\" : \"string\"",
-									"        },",
-									"        \"color\":{",
-									"            \"type\" : \"numeric\",",
-									"        },",
-									"        \"favorite\":{",
-									"            \"type\" : \"boolean\",",
-									"        }",
-									"    });",
-									"    pm.response.to.have.jsonSchema(expectedSchema);",
-									"})"
+									"// Verify valid project Id",
+									"pm.test(\"Invalid project Id\", function() {",
+									"    pm.expect(pm.response.text()).to.include(\"Not Found\");",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -356,13 +358,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/projects/{{projectId}}",
+							"raw": "{{baseURL}}/projects/{{invalidProjectId}}",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"projects",
-								"{{projectId}}"
+								"{{invalidProjectId}}"
 							]
 						}
 					},
@@ -404,7 +406,10 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"//Not found page",
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -414,13 +419,13 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{baseURL}}/projects/{{projectId}}",
+							"raw": "{{baseURL}}/projects/",
 							"host": [
 								"{{baseURL}}"
 							],
 							"path": [
 								"projects",
-								"{{projectId}}"
+								""
 							]
 						}
 					},
