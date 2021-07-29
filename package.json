@@ -11,16 +11,18 @@
     "test-smoke-headless": "testcafe chrome:headless ./pom/tests --test-meta type=smoke -r xunit:res.xml",
     "test-login": "testcafe chrome:headless,firefox:headless ./POM/tests/Login.test.js",
     "test-task": "testcafe chrome ./POM/tests/Task.test.js",
-    "lint": "eslint ./POM/"
+    "lint": "eslint ./POM/",
+    "api-testing": "newman run './api_testing/Todoist_coll.postman_collection.json' -e './api_testing/Todoist_env.postman_environment.json'"
   },
   "author": "jloyola",
   "license": "ISC",
   "dependencies": {
     "dotenv": "10.0.0",
-    "testcafe-reporter-allure": "^1.0.5"
+    "testcafe-reporter-allure": "1.0.5"
   },
   "devDependencies": {
     "eslint": "7.31.0",
+    "newman": "5.2.4",
     "testcafe-reporter-slack": "0.0.6"
   }
 }
