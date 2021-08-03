@@ -38,16 +38,15 @@ class TodayPage{
         await t.setTestSpeed(0.3)
     }
 
-    async addTenTodayTasks(){
+    async addTodayTasks(number){
         await t.click(this.plusAddbutton)
-        for (let i = 0; i < 10; i ++){
+        for (let i = 0; i < number; i ++){
             await t.typeText(this.titleTaskblock, TASK_INFO.TASK_NAME + " " + i, {paste: true})
-            await t.setTestSpeed(0.3)
             await t.click(this.addNewTaskbutton)
         }
         await t.click(this.cancelNewTaskButton)
         let itemCount = await this.itemList.count
-        if (itemCount >= 10)
+        if (itemCount >= number)
             await t.expect(itemCount).ok
     }
 
@@ -58,6 +57,7 @@ class TodayPage{
                 await t.rightClick(this.checkboxButton)
                 await t.click(this.deleteItemButton)
                 await t.click(this.confirmDeleteButton)
+                await t.setTestSpeed(0.3)
             }
         }
         if (itemCount == 0)

@@ -2,7 +2,7 @@ import homePage from '../pages/HomePage'
 import todayPage from '../pages/TodayPage'
 import basePage from '../pages/BasePage'
 import { STANDARD_USER} from '../data/Roles'
-import {URLS} from '../data/Constants'
+import {TASK_INFO, URLS} from '../data/Constants'
 
 fixture('Login feature test')
     .page `${URLS.HOME_URL}`
@@ -11,14 +11,14 @@ fixture('Login feature test')
         await t.useRole(STANDARD_USER)
     })
 
-test
+test.only
     .meta('type','smoke')('As a user I should be able to create a new task with today as the due date and validate it was created correctly', async t => {
         await todayPage.addNewTodayTask()
-        await t.expect(todayPage.newCreatedTask.exists).ok()
     })
-    .after(async () => {
+    .after(async t => {
         await basePage.goToInbox()
         await todayPage.deleteEveryTask()
+        await t.wait(3000)
     })
 
 test
@@ -34,11 +34,12 @@ test
 
 test
     ('As a user I should be able to create 10 tasks with today as the due date and validate it was created correctly', async t => {
-    await todayPage.addTenTodayTasks()
+    await todayPage.addTodayTasks(TASK_INFO.TEN_NEW_TASKS)
     })
-    .after(async () => {
+    .after(async t => {
         await basePage.goToInbox()
         await todayPage.deleteEveryTask()
+        await t.wait(3000)
     })
 
 test
