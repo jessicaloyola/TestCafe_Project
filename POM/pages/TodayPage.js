@@ -20,33 +20,20 @@ class TodayPage{
         this.cancelNewTaskButton = Selector('.reactist_button--secondary').withExactText('Cancel')
     }
 
-    async addNewTodayTask(){
+    async addTasks(numberofTask, duedate){
         await t.click(this.plusAddbutton)
-        await t.typeText(this.titleTaskblock, TASK_INFO.TASK_NAME, {paste: true})
-
-        await t.setTestSpeed(0.3)
-        await t.click(this.addNewTaskbutton)
-    }
-
-    async addNewTomorrowTask(){
-        await t.click(this.plusAddbutton)
-        await t.typeText(this.titleTaskblock, TASK_INFO.TASK_NAME, {paste: true})
-        await t.click(this.itemDueSelectorbutton)
-        await t.click(this.tomorrowDueButton)
-        await t.setTestSpeed(0.3)
-        await t.click(this.addNewTaskbutton)
-        await t.setTestSpeed(0.3)
-    }
-
-    async addTodayTasks(number){
-        await t.click(this.plusAddbutton)
-        for (let i = 0; i < number; i ++){
+        for (let i = 0; i < numberofTask; i ++){
             await t.typeText(this.titleTaskblock, TASK_INFO.TASK_NAME + " " + i, {paste: true})
+            if (duedate == false){
+                await t.click(this.itemDueSelectorbutton)
+                await t.click(this.tomorrowDueButton)
+            }
             await t.click(this.addNewTaskbutton)
         }
         await t.click(this.cancelNewTaskButton)
+        
         let itemCount = await this.itemList.count
-        if (itemCount >= number)
+        if (itemCount >= numberofTask)
             await t.expect(itemCount).ok
     }
 
@@ -54,8 +41,11 @@ class TodayPage{
         let itemCount = await this.itemList.count
         if (itemCount > 0){
             for (let i = 0; i < itemCount; i ++){
+                await t.setTestSpeed(0.3)
                 await t.rightClick(this.checkboxButton)
+                await t.setTestSpeed(0.3)
                 await t.click(this.deleteItemButton)
+                await t.setTestSpeed(0.3)
                 await t.click(this.confirmDeleteButton)
                 await t.setTestSpeed(0.3)
             }

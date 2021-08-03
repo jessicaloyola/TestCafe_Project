@@ -30,6 +30,8 @@ export const TASK_INFO = {
     TASK_NAME: "New task created ",
     PROJECT_NAME: 'Wizeline project',
     TEN_NEW_TASKS: 10,
-    ONE_NEW_TASK: 1
-
+    THREE_NEW_TASKS: 3,
+    ONE_NEW_TASK: 1,
+    TODAY_DUEDATE: true,
+    TOMORROW_DUEDATE: false
 }

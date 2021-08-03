@@ -10,36 +10,27 @@ fixture('Login feature test')
         await homePage.clicLoginLink()
         await t.useRole(STANDARD_USER)
     })
-
-test.only
-    .meta('type','smoke')('As a user I should be able to create a new task with today as the due date and validate it was created correctly', async t => {
-        await todayPage.addNewTodayTask()
-    })
-    .after(async t => {
+    .afterEach(async t =>{
+        await t.wait(3000)
         await basePage.goToInbox()
+        await t.wait(3000)
         await todayPage.deleteEveryTask()
         await t.wait(3000)
+    })
+
+test
+    .meta('type','smoke')('As a user I should be able to create a new task with today as the due date and validate it was created correctly', async t => {
+        await todayPage.addTasks(TASK_INFO.ONE_NEW_TASK, TASK_INFO.TODAY_DUEDATE)
     })
 
 test
     ('As a user I should be able to create a new task with tomorrow as the due date and validate it was created correctly', async t => {
-        await todayPage.addNewTomorrowTask()
-        await basePage.upcomingEvents()
-        await t.expect(todayPage.newCreatedTask.exists).ok()
-    })
-    .after(async () => {
-        await basePage.goToInbox()
-        await todayPage.deleteEveryTask()
+        await todayPage.addTasks(TASK_INFO.ONE_NEW_TASK, TASK_INFO.TOMORROW_DUEDATE)
     })
 
 test
     ('As a user I should be able to create 10 tasks with today as the due date and validate it was created correctly', async t => {
-    await todayPage.addTodayTasks(TASK_INFO.TEN_NEW_TASKS)
-    })
-    .after(async t => {
-        await basePage.goToInbox()
-        await todayPage.deleteEveryTask()
-        await t.wait(3000)
+    await todayPage.addTasks(TASK_INFO.TEN_NEW_TASKS, TASK_INFO.TODAY_DUEDATE)
     })
 
 test
@@ -53,11 +44,8 @@ test
     })
 
 test
-    .before(async t => {
-        await homePage.clicLoginLink()
-        await t.useRole(STANDARD_USER)
-    })
     .meta('type','smoke')('As a user I should be able to delete every task created', async t => {
+        await todayPage.addTasks(TASK_INFO.THREE_NEW_TASKS, TASK_INFO.TODAY_DUEDATE)
         await basePage.goToInbox()
         await todayPage.deleteEveryTask()
     })
