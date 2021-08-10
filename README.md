@@ -2,11 +2,17 @@
 ## QA Bootcamp 
 #### Jessica Loyola
 
+## PROJECT STRUCTURE
+
+
+
 ## INDEX
 
 1. Test suites
 2. Dependencies
 3. Aditional config
+
+// clonar, crear variables, etc...
 
 ## CONTENT
 

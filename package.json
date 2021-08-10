@@ -18,11 +18,12 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "10.0.0",
+    "testcafe": "1.15.1",
     "testcafe-reporter-allure": "1.0.5"
   },
   "devDependencies": {
     "eslint": "7.31.0",
-    "newman": "^5.2.4",
+    "newman": "5.2.4",
     "testcafe-reporter-slack": "0.0.6"
   }
 }

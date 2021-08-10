@@ -14,7 +14,8 @@ class TodayPage{
         this.itemList = Selector('.task_list_item')
         this.deleteItemButton = Selector('.icon_menu_item__content').withExactText('Delete task')
         this.confirmDeleteButton = Selector('.ist_button_red').withExactText('Delete')
-        this.newProjectCreated = Selector('h1 .simple_content').withExactText(TASK_INFO.PROJECT_NAME)
+        //no va aqui
+        this.newProjectCreated = Selector('h1 .simple_content').withExactText(TASK_INFO.PROJECT_NAME) 
         this.projectHeaderActionsButton = Selector('[aria-label="Project options menu"]');
         this.deleteProjectButton = Selector('.icon_menu_item__content').withExactText('Delete project')
         this.cancelNewTaskButton = Selector('.reactist_button--secondary').withExactText('Cancel')
@@ -33,7 +34,8 @@ class TodayPage{
         await t.click(this.cancelNewTaskButton)
         
         let itemCount = await this.itemList.count
-        if (itemCount >= numberofTask)
+        //modificar codigo
+        if (itemCount >= numberofTask) 
             await t.expect(itemCount).ok
     }
 
@@ -41,17 +43,12 @@ class TodayPage{
         let itemCount = await this.itemList.count
         if (itemCount > 0){
             for (let i = 0; i < itemCount; i ++){
-                await t.setTestSpeed(0.3)
                 await t.rightClick(this.checkboxButton)
-                await t.setTestSpeed(0.3)
                 await t.click(this.deleteItemButton)
-                await t.setTestSpeed(0.3)
                 await t.click(this.confirmDeleteButton)
-                await t.setTestSpeed(0.3)
             }
         }
-        if (itemCount == 0)
-            await t.expect(itemCount).ok
+        await t.expect(this.itemList).notOk()
     }
 
     async cleanProjectWorkspace(){

@@ -1,3 +1,4 @@
+import { fixture, test } from 'testcafe'
 import logInPage from '../pages/LogInPage'
 import homePage from '../pages/HomePage'
 import todayPage from '../pages/TodayPage'
