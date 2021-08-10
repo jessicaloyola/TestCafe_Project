@@ -16,7 +16,7 @@
 							"script": {
 								"exec": [
 									"//Vertify status code is 200 -> Success",
-									"pm.test(\"Verify status code\", function(){",
+									"pm.test(\"Verify status code is Success\", function(){",
 									"    pm.response.to.have.status(200);",
 									"});",
 									""
@@ -48,7 +48,7 @@
 							"script": {
 								"exec": [
 									"// Verify not valid page",
-									"pm.test(\"Page not found message received\", function() {",
+									"pm.test(\"Message page not found received\", function() {",
 									"    pm.expect(pm.response.text()).to.include(\"404 page not found\");",
 									"});",
 									""
@@ -80,7 +80,7 @@
 							"script": {
 								"exec": [
 									"//Vertify status code is 200 -> Success",
-									"pm.test(\"Verify status code\", function(){",
+									"pm.test(\"Verify status code is Success\", function(){",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
@@ -92,7 +92,7 @@
 									"",
 									"pm.environment.set(\"projectId\", jsonData.id);",
 									"",
-									"pm.test(\"validate Schema\", function(){",
+									"pm.test(\"validate project schema\", function(){",
 									"    const expectedSchema = ({",
 									"        \"id\":{",
 									"            \"type\" : \"numeric\"",
@@ -106,6 +106,8 @@
 									"    });",
 									"    pm.response.to.have.jsonSchema(expectedSchema);",
 									"})",
+									"",
+									"pm.environment.unset(\"projectName\");",
 									""
 								],
 								"type": "text/javascript"
@@ -163,12 +165,12 @@
 							"script": {
 								"exec": [
 									"//Bad request",
-									"pm.test(\"Status code is 400\", function () {",
+									"pm.test(\"Status code is 400, bad request\", function () {",
 									"    pm.response.to.have.status(400);",
 									"});",
 									"",
 									"// Verify required name",
-									"pm.test(\"Required project name\", function() {",
+									"pm.test(\"Project name shall be required\", function() {",
 									"    pm.expect(pm.response.text()).to.include(\"Empty name\");",
 									"});",
 									""
@@ -221,7 +223,7 @@
 							"script": {
 								"exec": [
 									"//Verify success test",
-									"pm.test(\"Status code is 200\", function () {",
+									"pm.test(\"Verify status code is Success\", function () {",
 									"    pm.response.to.be.success;",
 									"});"
 								],
@@ -282,13 +284,13 @@
 							"script": {
 								"exec": [
 									"//Bad request",
-									"pm.test(\"Status code is 400\", function () {",
+									"pm.test(\"Status code is 400, bad request\", function () {",
 									"    pm.response.to.have.status(400);",
 									"});",
 									"",
 									"",
 									"// Verify valid data type",
-									"pm.test(\"Expected numeric not string\", function() {",
+									"pm.test(\"Expected numeric value, not string\", function() {",
 									"    pm.expect(pm.response.text()).to.include(\"JSON decode error: unexpected string at pos 21\");",
 									"});"
 								],
@@ -340,13 +342,15 @@
 							"script": {
 								"exec": [
 									"//Vertify status code is 200 -> Success",
-									"pm.test(\"Verify status code\", function(){",
+									"pm.test(\"Verify status code is Success\", function(){",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
 									"var jsonData = pm.response.json();",
 									"var projectId = pm.environment.get(projectId);",
-									"pm.test(\"Project id is correct\", function () {",
+									"",
+									"//Validate project id",
+									"pm.test(\"Validatee project id correct\", function () {",
 									"    pm.expect(jsonData.projectId).to.eql(projectId);",
 									"});"
 								],
@@ -378,12 +382,12 @@
 							"script": {
 								"exec": [
 									"//Not found",
-									"pm.test(\"Status code is 404\", function () {",
+									"pm.test(\"Status code is 404, page not found\", function () {",
 									"    pm.response.to.have.status(404);",
 									"});",
 									"",
 									"// Verify valid project Id",
-									"pm.test(\"Invalid project Id\", function() {",
+									"pm.test(\"Veirify invalid project Id\", function() {",
 									"    pm.expect(pm.response.text()).to.include(\"Not Found\");",
 									"});"
 								],
@@ -415,7 +419,7 @@
 							"script": {
 								"exec": [
 									"//Verify success test",
-									"pm.test(\"Status code is 200\", function () {",
+									"pm.test(\"Verify status code is Success\", function () {",
 									"    pm.response.to.be.success;",
 									"});",
 									"",
@@ -449,7 +453,7 @@
 							"script": {
 								"exec": [
 									"//Not found page",
-									"pm.test(\"Status code is 404\", function () {",
+									"pm.test(\"Status code is 404, page not found\", function () {",
 									"    pm.response.to.have.status(404);",
 									"});"
 								],
@@ -506,7 +510,7 @@
 							"script": {
 								"exec": [
 									"//Vertify status code is 200 -> Success",
-									"pm.test(\"Verify status code\", function(){",
+									"pm.test(\"Verify status code is Success\", function(){",
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
@@ -542,7 +546,7 @@
 							"script": {
 								"exec": [
 									"// Verify not valid page",
-									"pm.test(\"Page not found message received\", function() {",
+									"pm.test(\"Status code is 404, page not found\", function() {",
 									"    pm.expect(pm.response.text()).to.include(\"404 page not found\");",
 									"});",
 									""
@@ -573,7 +577,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"validate Schema\", function(){",
+									"pm.test(\"validate Task schema\", function(){",
 									"    const expectedSchema = ({",
 									"        \"id\":{",
 									"            \"type\" : \"numeric\"",
@@ -592,7 +596,7 @@
 									"pm.environment.set(\"taskId\", jsonData.id);",
 									"",
 									"//Vertify status code is 200 -> Success",
-									"pm.test(\"Verify status code\", function(){",
+									"pm.test(\"Verify status code is Success\", function(){",
 									"    pm.response.to.have.status(200);",
 									"});",
 									""
@@ -633,12 +637,12 @@
 							"script": {
 								"exec": [
 									"//Bad request",
-									"pm.test(\"Status code is 400\", function () {",
+									"pm.test(\"Status code is 400, bad request\", function () {",
 									"    pm.response.to.have.status(400);",
 									"});",
 									"",
 									"// Verify required content",
-									"pm.test(\"Required content\", function() {",
+									"pm.test(\"Verify content is required\", function() {",
 									"    pm.expect(pm.response.text()).to.include(\"Empty content\");",
 									"});",
 									"",
@@ -702,12 +706,12 @@
 							"script": {
 								"exec": [
 									"//Not found page",
-									"pm.test(\"Status code is 404\", function () {",
+									"pm.test(\"Status code is 404, page not found\", function () {",
 									"    pm.response.to.have.status(404);",
 									"});",
 									"",
 									"// Verify valid project Id",
-									"pm.test(\"Invalid task Id\", function() {",
+									"pm.test(\"Verify invalid task Id\", function() {",
 									"    pm.expect(pm.response.text()).to.include(\"Not Found\");",
 									"});"
 								],
@@ -779,12 +783,12 @@
 							"script": {
 								"exec": [
 									"//Bad request",
-									"pm.test(\"Status code is 400\", function () {",
+									"pm.test(\"Status code is 400, bad request\", function () {",
 									"    pm.response.to.have.status(400);",
 									"});",
 									"",
 									"// Verify valid data type",
-									"pm.test(\"Expected numeric not string\", function() {",
+									"pm.test(\"Expected numeric value not string\", function() {",
 									"    pm.expect(pm.response.text()).to.include(\"JSON decode error: unexpected string at pos 24\");",
 									"});"
 								],
@@ -857,7 +861,7 @@
 							"script": {
 								"exec": [
 									"//Not found page",
-									"pm.test(\"Status code is 404\", function () {",
+									"pm.test(\"Status code is 404, page not found\", function () {",
 									"    pm.response.to.have.status(404);",
 									"});"
 								],
@@ -987,8 +991,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"//Not found page",
-									"pm.test(\"Status code is 405\", function () {",
+									"//Method not allowed",
+									"pm.test(\"Status code is 405, method not allowed\", function () {",
 									"    pm.response.to.have.status(405);",
 									"});"
 								],
