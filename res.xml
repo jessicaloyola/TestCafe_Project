@@ -1,51 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite name="TestCafe Tests: Chrome 92.0.4515.107 / macOS 10.15.7" tests="9" failures="1" skipped="0" errors="1" time="159.857" timestamp="Tue, 03 Aug 2021 20:22:48 GMT" >
-  <testcase classname="Login feature test" name="As a user I should be able to log in successfully by providing valid credentials" time="11.063">
+<testsuite name="TestCafe Tests: Chrome 92.0.4515.131 / macOS 10.15.7" tests="9" failures="0" skipped="0" errors="0" time="323.97" timestamp="Wed, 11 Aug 2021 22:08:42 GMT" >
+  <testcase classname="Login feature test" name="As a user I should be able to log in successfully by providing valid credentials" time="17.839">
   </testcase>
-  <testcase classname="Login feature test" name="As a user I should be able to not log in by providing invalid credentials" time="3.419">
+  <testcase classname="Login feature test" name="As a user I should be able to not log in by providing invalid credentials" time="9.567">
   </testcase>
-  <testcase classname="Login feature test" name="As a user I should be able to not log in by providing no user" time="3.193">
+  <testcase classname="Login feature test" name="As a user I should be able to not log in by providing no user" time="6.995">
   </testcase>
-  <testcase classname="Login feature test" name="As a user, I should not be able to log in when a password is not provided" time="2.935">
+  <testcase classname="Login feature test" name="As a user, I should not be able to log in when a password is not provided" time="8.248">
   </testcase>
-  <testcase classname="Login feature test" name="As a user I should be able to create a new task with today as the due date and validate it was created correctly" time="13.349">
+  <testcase classname="Project feature test" name="As a user I should be able to create a new project with a color and add it to my favorites" time="36.311">
   </testcase>
-  <testcase classname="Login feature test" name="As a user I should be able to create a new task with tomorrow as the due date and validate it was created correctly" time="14.253">
+  <testcase classname="Task feature test" name="As a user I should be able to create a new task with today as the due date and validate it was created correctly" time="34.88">
   </testcase>
-  <testcase classname="Login feature test" name="As a user I should be able to create 10 tasks with today as the due date and validate it was created correctly" time="25.057">
-    <failure>
-    <![CDATA[
-      1) - Error in test.after hook -
-         The specified selector does not match any element in the DOM tree.
-
-          > | Selector('.icon_menu_item__content')
-            |   .withExactText('Delete task')
-
-         Browser: Chrome 92.0.4515.107 / macOS 10.15.7
-
-            40 |    async deleteEveryTask(){
-            41 |        let itemCount = await this.itemList.count
-            42 |        if (itemCount > 0){
-            43 |            for (let i = 0; i < itemCount; i ++){
-            44 |                await t.rightClick(this.checkboxButton)
-          > 45 |                await t.click(this.deleteItemButton)
-            46 |                await t.click(this.confirmDeleteButton)
-            47 |                await t.setTestSpeed(0.3)
-            48 |            }
-            49 |        }
-            50 |        if (itemCount == 0)
-
-            at <anonymous>
-      (/Users/karina.loyola/Documents/Workspace/TestCafe_Project/pom/pages/TodayPage.js:45:25)
-            at asyncGeneratorStep
-      (/Users/karina.loyola/Documents/Workspace/TestCafe_Project/pom/pages/TodayPage.js:2:147)
-            at _next
-      (/Users/karina.loyola/Documents/Workspace/TestCafe_Project/pom/pages/TodayPage.js:2:485)
-    ]]>
-    </failure>
+  <testcase classname="Task feature test" name="As a user I should be able to create a new task with tomorrow as the due date and validate it was created correctly" time="38.226">
   </testcase>
-  <testcase classname="Login feature test" name="As a user I should be able to create a new project with a color and add it to my favorites" time="9.221">
+  <testcase classname="Task feature test" name="As a user I should be able to create 10 tasks with today as the due date and validate it was created correctly" time="118.643">
   </testcase>
-  <testcase classname="Login feature test" name="As a user I should be able to delete every task created" time="77.286">
+  <testcase classname="Task feature test" name="As a user I should be able to delete every task created" time="53.182">
   </testcase>
 </testsuite>

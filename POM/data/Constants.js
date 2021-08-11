@@ -36,5 +36,6 @@ export const TASK_INFO = {
 }
 
 export const PROJECT_INFO = {
-    PROJECT_NAME: 'Wizeline project'
+    PROJECT_NAME: 'Wizeline project',
+    PROJECT_COLOR: 'Teal'
 }

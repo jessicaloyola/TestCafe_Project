@@ -3,7 +3,9 @@ import { TASK_INFO } from '../data/Constants'
 
 class TodayPage{
     constructor (){
+        //confirmation of Today page selectors
         this.pageTitle = Selector('.simple_content').withExactText('Today')
+        //add new task selectors
         this.plusAddbutton = Selector('.plus_add_button')
         this.titleTaskblock= Selector('.public-DraftStyleDefault-ltr')
         this.addNewTaskbutton= Selector('.reactist_button--primary')

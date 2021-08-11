@@ -3,10 +3,12 @@ import { TASK_INFO } from '../data/Constants'
 
 class InboxPage{
     constructor (){
+        //delete task
         this.checkboxButton = Selector('.task_checkbox__circle')
-        this.itemList = Selector('.task_list_item')
         this.deleteItemButton = Selector('.icon_menu_item__content').withExactText('Delete task')
         this.confirmDeleteButton = Selector('.ist_button_red').withExactText('Delete')
+        //list of items
+        this.itemList = Selector('.task_list_item')
     }
 
     async deleteEveryTask(){

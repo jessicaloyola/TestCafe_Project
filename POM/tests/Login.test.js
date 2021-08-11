@@ -25,7 +25,7 @@ test('As a user I should be able to not log in by providing no user', async t =>
     await t.expect(logInPage.errorEmailMessage.innerText).contains(MESSAGES.ERROR.LOGIN_PAGE.INVALID_EMAIL)
 })
 
-test('As a user, I should not be able to log in when a password is not provided', async t => {
+test('As a user I should not be able to log in when a password is not provided', async t => {
     await t.click(homePage.loginRef)
     await logInPage.submitLoginForm(CREDENTIALS.STANDARD_USER.USERNAME, null)
     await t.expect(logInPage.errorPasswordMessage.innerText).contains(MESSAGES.ERROR.LOGIN_PAGE.BLANK_PASSWORD)
