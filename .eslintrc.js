@@ -1,11 +1,13 @@
 module.exports = {
     "env": {
         "browser": true,
-        "es2021": true,
-        node:true
+        "es2021": true
     },
-    "extends": "eslint:recommended",
-    "parserOptions": {
+    "plugins": [
+        "testcafe"
+      ],
+      "extends": "plugin:testcafe/recommended",
+        "parserOptions": {
         "ecmaVersion": 12,
         "sourceType": "module"
     },

@@ -27,11 +27,14 @@ export const MESSAGES = {
 }
 
 export const TASK_INFO = {
-    TASK_NAME: "New task created ",
-    PROJECT_NAME: 'Wizeline project',
+    TASK_NAME: "New task created",
     TEN_NEW_TASKS: 10,
     THREE_NEW_TASKS: 3,
     ONE_NEW_TASK: 1,
-    TODAY_DUEDATE: true,
-    TOMORROW_DUEDATE: false
+    TODAY_DUEDATE: "Today",
+    TOMORROW_DUEDATE: "Tomorrow"
+}
+
+export const PROJECT_INFO = {
+    PROJECT_NAME: 'Wizeline project'
 }

@@ -1,5 +1,5 @@
 import { Selector, t } from 'testcafe'
-import { TASK_INFO } from '../data/Constants'
+import { PROJECT_INFO } from '../data/Constants'
 
 
 class BasePage{
@@ -12,6 +12,9 @@ class BasePage{
         this.addtoFavoriteSwitch = Selector('.reactist_switch')
         this.addFavoriteProjectButton = Selector('.ist_button_red')
         this.inboxMenuButton = Selector('#filter_inbox')
+        this.newProjectCreated = Selector('h1 .simple_content').withExactText(PROJECT_INFO.PROJECT_NAME) 
+        this.projectHeaderActionsButton = Selector('[aria-label="Project options menu"]');
+        this.deleteProjectButton = Selector('.icon_menu_item__content').withExactText('Delete project')
 
     }
 
@@ -21,7 +24,7 @@ class BasePage{
 
     async createNewFavoriteProject(){
         await t.click(this.newProjectButton)
-        await t.typeText(this.projectNameLabel, TASK_INFO.PROJECT_NAME, {paste: true})
+        await t.typeText(this.projectNameLabel, PROJECT_INFO.PROJECT_NAME, {paste: true})
         await t.click(this.colorSelection)
         await t.click(this.favoriteColorSelection)
         await t.click(this.addtoFavoriteSwitch)
@@ -32,6 +35,11 @@ class BasePage{
         await t.click(this.inboxMenuButton)
     }
 
+    async cleanProjectWorkspace(){
+        await t.click(this.projectHeaderActionsButton)
+        await t.click(this.deleteProjectButton)
+        await t.click(this.confirmDeleteButton)
+    }
 }
 
 export default new BasePage

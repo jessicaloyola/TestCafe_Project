@@ -4,19 +4,48 @@
 
 ## PROJECT STRUCTURE
 
+```
+testcafe_project
+    |__ POM
+        |__ data
+            |   |__Constants.js
+            |   |__Roles.js
+        |__ pages
+            |   |__BasePage.js
+            |   |__HomePage.js
+            |   |__LoginPage.js
+            |   |__ProjectPage.js
+            |   |__TodayPage.js
+        |__ tests
+            |   |__Login.test.js
+            |   |__Project.test.js
+            |   |__Task.test.js
+```
 
 
 ## INDEX
 
-1. Test suites
-2. Dependencies
-3. Aditional config
-
-// clonar, crear variables, etc...
+1. Installation
+2. Test suites
+3. Adittional Dependencies
+4. Aditional config
 
 ## CONTENT
 
-1. Four Test suites implemented
+1. Installation
+
+    - Clone project from repository `https://github.com/jessicaloyola/TestCafe_Project.git`
+    - Install dependencies `npm install`
+    - Environment variables to be created in a .env file
+
+```
+HOME_URL=https://todoist.com
+LOGIN_URL=https://todoist.com/users/showlogin
+STANDARD_USER=
+STANDARD_USER_PASSWORD=
+```
+
+2. Five Test suites implemented
 
     - Log in test suite, consist on 4 tests:
         - Log in successfully (1 Positive case)- As a user I should be able to not log in by providing invalid credentials
@@ -38,6 +67,11 @@
         
         >To test task cases the following command shall be executed: `npm run test-task` 
 
+    - Project test suite consist on 5 tests
+        - As a user I should be able to create a new project with a color and add it to my favorites
+        
+        >To test task cases the following command shall be executed: `npm run test-project` 
+
     - Smoke test suite consist on 4 tests:
         - As a user I should be able to create a new task with today as the due date and validate it was created correctly
         - As a user I should be able to create a new project with a color and add it to my favorites
@@ -51,7 +85,7 @@
     - To test all test suite the following command shall be executed: `npm run test-headless`
     Test will be presented headless
 
-2. Dependencies
+3. Adittional dependencies
 
 Dependecies implemented in this project are:
 - XUnit as visual reporter
@@ -60,7 +94,7 @@ Dependecies implemented in this project are:
 - Github Source Code repository
 
 
-3. Aditional configuration
+4. Aditional configuration
 
 - Assertion timeout configurated in 4000
 - Browsers supported:
