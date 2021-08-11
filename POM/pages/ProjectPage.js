@@ -14,6 +14,7 @@ class ProjectPage{
         //clean project workspace
         this.deleteProjectButton = Selector('.icon_menu_item__content').withExactText('Delete project')
         this.confirmDeleteButton = Selector('.ist_button_red').withText('Delete')
+
     }
 
     async validateProject(projectName, projectColor, isFavoriteFlag){

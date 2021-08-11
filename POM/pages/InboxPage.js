@@ -1,5 +1,4 @@
 import { Selector, t } from 'testcafe'
-import { TASK_INFO } from '../data/Constants'
 
 class InboxPage{
     constructor (){

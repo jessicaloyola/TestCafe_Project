@@ -9,6 +9,7 @@ fixture('Project feature test')
     .beforeEach(async t =>{
         await t.click(homePage.loginRef)
         await t.useRole(STANDARD_USER)
+        await basePage.cleanProjectBefore()
     })
 
 test
