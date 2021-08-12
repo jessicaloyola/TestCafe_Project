@@ -1,6 +1,4 @@
 import { Selector, t } from 'testcafe'
-import { PROJECT_INFO } from '../data/Constants'
-
 
 class BasePage{
     constructor(){

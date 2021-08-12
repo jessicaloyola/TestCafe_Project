@@ -6,8 +6,10 @@ class InboxPage{
         this.checkboxButton = Selector('.task_checkbox__circle')
         this.deleteItemButton = Selector('.icon_menu_item__content').withExactText('Delete task')
         this.confirmDeleteButton = Selector('.ist_button_red').withExactText('Delete')
-        //list of items
+        //validate task
         this.itemList = Selector('.task_list_item')
+        this.dueDateIcon = Selector('.date')
+
     }
 
     async deleteEveryTask(){
@@ -24,9 +26,10 @@ class InboxPage{
 
     async validateAddedTasks(taskname, numberOfTask, dueDate){
         for (let i = 0; i < numberOfTask; i ++){
-            let text = await this.itemList.nth(i).innerText
-            let taskNameComplet = taskname + " " + i
-            if (text.includes(taskNameComplet)&& text.includes(dueDate) == false){
+            let currentTaskText = await this.itemList.nth(i).innerText
+            let currentDueDateText = await this.dueDateIcon.nth(i).innerText
+            let taskNameComplete = taskname + " " + i
+            if (currentTaskText.includes(taskNameComplete) == false || currentDueDateText == dueDate == false){
                 return false
             }
         } 

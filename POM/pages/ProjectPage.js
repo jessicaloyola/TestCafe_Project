@@ -18,6 +18,7 @@ class ProjectPage{
     }
 
     async validateProject(projectName, projectColor, isFavoriteFlag){
+        let favoriteFlag = isFavoriteFlag
         await t.click(this.projectHeaderActionsButton)
         await t.click(this.editProjectButton)
 
@@ -26,7 +27,7 @@ class ProjectPage{
             color: await this.projectColorDropdown.innerText,
             isFavorite: await this.favoriteCheckbox.hasClass('reactist_switch--checked')
         }
-        if (validProject.name == projectName && validProject.color == projectColor && validProject.isFavorite==isFavoriteFlag){
+        if (validProject.name == projectName && validProject.color == projectColor && validProject.isFavorite==favoriteFlag){
             await t.click(this.cancelEditButton)
             return true  
         } 

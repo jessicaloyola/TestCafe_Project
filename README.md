@@ -39,10 +39,13 @@ testcafe_project
     - Environment variables to be created in a .env file
 
 ```
-HOME_URL=https://todoist.com
-LOGIN_URL=https://todoist.com/users/showlogin
-STANDARD_USER=
-STANDARD_USER_PASSWORD=
+HOME_URL= [home web page]
+LOGIN_URL= [log in page]
+STANDARD_USER= [valid e-mail user to login]
+STANDARD_USER_PASSWORD= [valid password to login]
+TESTCAFE_SLACK_WEBHOOK= [slack hook url]
+TESTCAFE_SLACK_CHANNEL= [slack channel created]
+TESTCAFE_SLACK_USERNAME= [slack boot username]
 ```
 
 2. Five Test suites implemented
